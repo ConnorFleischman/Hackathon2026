@@ -29,8 +29,8 @@ def get_feed(
         select(Post)
         .where(
             Post.campus_id == user.campus_id,
-            Post.visibility_status == VisibilityStatus.VISIBLE,
-            Post.moderation_status == ModerationStatus.APPROVED,
+            Post.visibility_status == VisibilityStatus.VISIBLE.value,
+            Post.moderation_status == ModerationStatus.APPROVED.value,
             Post.expires_at > utc_now(),
         )
         .order_by(Post.created_at.desc())

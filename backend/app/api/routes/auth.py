@@ -57,8 +57,8 @@ def register(payload: RegisterRequest, db: DbSession) -> AuthResponse:
         display_name=payload.display_name,
         campus_id=campus.id,
         password_hash=hash_password(payload.password),
-        role=UserRole.USER,
-        status=UserStatus.ACTIVE,
+        role=UserRole.USER.value,
+        status=UserStatus.ACTIVE.value,
         is_verified=True,
     )
     db.add(user)

@@ -4,22 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChatMuch Messages</title>
+    <link rel="stylesheet" href="/css/Homepage.css">
 </head>
 <body>
-    <header>
-        <h1>ChatMuch</h1>
-        <nav>
-            <a href="/Homepage.html">Home</a>
-            <a href="/Messages.html">Messages</a>
-            <button id="logoutButton" type="button">Log Out</button>
-        </nav>
-    </header>
+    <div class="page-shell">
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">Private conversations</p>
+                <h1 class="app-brand">Messages</h1>
+                <p id="profileSummary" class="topbar-meta"></p>
+            </div>
 
-    <main>
-        <h2>Messages</h2>
-        <p id="profileSummary"></p>
-        <p id="messagesStatus"></p>
-    </main>
+            <nav class="topbar-actions" aria-label="Primary">
+                <a class="button-ghost" href="/Homepage.html">Feed</a>
+                <a class="button-ghost" href="/Profile.html">Profile</a>
+                <a class="button-secondary" href="/Messages.html">Messages</a>
+                <button id="logoutButton" class="button-ghost" type="button">Log Out</button>
+            </nav>
+        </header>
+
+        <main class="message-stack">
+            <section class="message-card">
+                <div class="card-header">
+                    <div>
+                        <h2>Messaging preview</h2>
+                        <p>The backend is not exposing direct messages yet, but the page now looks like a real in-product destination.</p>
+                    </div>
+                </div>
+
+                <div class="message-placeholder">
+                    <div class="placeholder-row">
+                        <div class="avatar">RA</div>
+                        <div>
+                            <strong>Residence Hall Group</strong>
+                            <p>Move-in reminders and building updates would appear here.</p>
+                        </div>
+                    </div>
+                    <div class="placeholder-row">
+                        <div class="avatar">CL</div>
+                        <div>
+                            <strong>Classmates</strong>
+                            <p>Study plans, quick questions, and shared event details would show up in a threaded inbox.</p>
+                        </div>
+                    </div>
+                    <div class="placeholder-row">
+                        <div class="avatar">EV</div>
+                        <div>
+                            <strong>Campus Events</strong>
+                            <p>Announcements and RSVP follow-ups can live here once the messaging API is ready.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="message-card">
+                <h3>Current status</h3>
+                <p id="messagesStatus" class="status-pill" aria-live="polite"></p>
+            </section>
+        </main>
+    </div>
 
     <script src="/js/global.js"></script>
     <script src="/js/Messages.js"></script>

@@ -111,3 +111,8 @@ if CLIENT_DIR.exists():
     def serve_messages() -> FileResponse:
         """Serve the messages placeholder page."""
         return FileResponse(CLIENT_DIR / "Messages.html")
+
+    @app.get("/Profile.html", include_in_schema=False)
+    def serve_profile() -> FileResponse:
+        """Serve the profile page."""
+        return FileResponse(CLIENT_DIR / "Profile.html")
