@@ -3,11 +3,11 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 from uuid import UUID
 
-from sqlalchemy import Boolean, Enum, ForeignKey, String, Uuid, text
+from sqlalchemy import Boolean, ForeignKey, String, Uuid, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base, TimestampMixin
-from app.db.enums import UserRole, UserStatus
+from app.db.enums import UserRole, UserStatus, db_enum
 from app.utils.ids import new_uuid
 
 if TYPE_CHECKING:
@@ -38,12 +38,12 @@ class User(TimestampMixin, Base):
     display_name: Mapped[str | None] = mapped_column(String(120), nullable=True)
     password_hash: Mapped[str] = mapped_column(String(255), nullable=False)
     role: Mapped[UserRole] = mapped_column(
-        Enum(UserRole, name="user_role"),
+        db_enum(UserRole, name="user_role"),
         nullable=False,
         server_default=text("'user'"),
     )
     status: Mapped[UserStatus] = mapped_column(
-        Enum(UserStatus, name="user_status"),
+        db_enum(UserStatus, name="user_status"),
         nullable=False,
         server_default=text("'pending_verification'"),
     )

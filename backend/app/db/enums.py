@@ -1,6 +1,9 @@
 """Shared database-facing enums for SQLAlchemy models and schemas."""
 
 from enum import Enum
+from typing import TypeVar
+
+from sqlalchemy import Enum as SqlEnum
 
 
 class StrEnum(str, Enum):
@@ -8,6 +11,19 @@ class StrEnum(str, Enum):
 
     def __str__(self) -> str:
         return self.value
+
+
+EnumT = TypeVar("EnumT", bound=StrEnum)
+
+
+def db_enum(enum_class: type[EnumT], *, name: str) -> SqlEnum:
+    """Persist enum values in the database instead of enum member names."""
+    return SqlEnum(
+        enum_class,
+        name=name,
+        values_callable=lambda members: [member.value for member in members],
+        validate_strings=True,
+    )
 
 
 class UserRole(StrEnum):
@@ -96,6 +112,7 @@ class ReportTargetType(StrEnum):
 
 
 __all__ = [
+    "db_enum",
     "FlagDecision",
     "FlagSource",
     "FlagType",

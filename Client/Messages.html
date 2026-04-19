@@ -1,18 +1,27 @@
-{% extends "Index.html" %}
-{% block title %}Messages{% endblock %}
-{% block content %}
-    <p>Who would you like to directly message today?</p>
-    <form flex-container style="flex-direction: row;" method="post" id="userForm">
-        <label for="userSearch">Search for a user:</label>
-        <input id="user-search" type="text" id="userSearch" required placeholder="John Smith" name="userSearch">
-        <button type="submit">Search</button>
-    </form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatMuch Messages</title>
+</head>
+<body>
+    <header>
+        <h1>ChatMuch</h1>
+        <nav>
+            <a href="/Homepage.html">Home</a>
+            <a href="/Messages.html">Messages</a>
+            <button id="logoutButton" type="button">Log Out</button>
+        </nav>
+    </header>
 
-    <div id="MessageList">
+    <main>
+        <h2>Messages</h2>
+        <p id="profileSummary"></p>
+        <p id="messagesStatus"></p>
+    </main>
 
-    </div>
-
-    <div id="MessagesLog">
-        
-    </div>
-{% endblock %}
+    <script src="/js/global.js"></script>
+    <script src="/js/Messages.js"></script>
+</body>
+</html>

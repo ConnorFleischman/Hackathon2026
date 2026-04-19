@@ -1,47 +1,25 @@
-let searchBar = document.getElementById('userForm');
-let searchInput = document.getElementById('userSearch');
-let messageContainer = document.getElementById('MessageList');
-let messageLogContainer = document.getElementById('MessagesLog'); 
-
-searchBar.addEventListener('submit', function(event) {
-    let theSearch = searchInput.ariaValueMax.trim();
-    if (theSearch === '') {
-        alert('Please enter a username to search for.');
-    } else {
-        fetch('/api/searchMessageLogs', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ searchQuery: theSearch })
-        })
-        .then(response => response.json())
-        .then(data => {
-            loadMessages(data.messages)
-        });
+document.addEventListener("DOMContentLoaded", async () => {
+    const session = window.ChatMuch.requireAuthSession();
+    if (!session) {
+        return;
     }
-})
 
-//Used to load the messages that the user has with the specific user they searched for
-function loadMessages(messages) {
-    messageContainer.innerHTML = '';
-    messages.forEach(element => {
-        messageContainer.innerHTML += `
-        <div display="flex" flex-direction="column">
-        <h3>${element.username}</h3>
-        </div>
-        `
-    });
-}
+    const logoutButton = document.getElementById("logoutButton");
+    const profileSummary = document.getElementById("profileSummary");
+    const messagesStatus = document.getElementById("messagesStatus");
 
-function loadMessageLogs(logs){
-    messageLogContainer.innerHTML = '';
-    logs.forEach(element => {
-        messageLogContainer.innerHTML += `
-        <div display="flex" flex-direction="column">
-        <h3>${element.username}</h3>
-        <p>${element.message}</p>
-        </div>
-        `
+    logoutButton.addEventListener("click", () => {
+        window.ChatMuch.clearAuthSession();
+        window.location.href = "/login.html";
     });
-}
+
+    try {
+        const user = await window.ChatMuch.apiRequest("/auth/me");
+        profileSummary.textContent = `${user.display_name || user.username} is connected to the backend.`;
+        messagesStatus.textContent =
+            "Direct messaging is not implemented in the current backend yet, so this page is a safe placeholder instead of a broken API call.";
+    } catch (error) {
+        window.ChatMuch.clearAuthSession();
+        window.location.href = "/login.html";
+    }
+});

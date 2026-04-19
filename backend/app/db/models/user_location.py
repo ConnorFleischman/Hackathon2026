@@ -4,11 +4,11 @@ from datetime import datetime
 from typing import TYPE_CHECKING
 from uuid import UUID
 
-from sqlalchemy import DateTime, Enum, ForeignKey, Numeric, Uuid, text
+from sqlalchemy import DateTime, ForeignKey, Numeric, Uuid, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base
-from app.db.enums import LocationSource
+from app.db.enums import LocationSource, db_enum
 from app.utils.ids import new_uuid
 
 if TYPE_CHECKING:
@@ -35,7 +35,7 @@ class UserLocation(Base):
     latitude: Mapped[float | None] = mapped_column(Numeric(9, 6), nullable=True)
     longitude: Mapped[float | None] = mapped_column(Numeric(9, 6), nullable=True)
     source: Mapped[LocationSource] = mapped_column(
-        Enum(LocationSource, name="location_source"),
+        db_enum(LocationSource, name="location_source"),
         nullable=False,
         server_default=text("'gps'"),
     )
