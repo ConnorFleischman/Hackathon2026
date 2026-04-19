@@ -9,6 +9,7 @@ from typing import Sequence, Union
 
 from alembic import op
 import sqlalchemy as sa
+from sqlalchemy.dialects import postgresql
 
 
 # revision identifiers, used by Alembic.
@@ -18,10 +19,10 @@ branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
 
-user_role_enum = sa.Enum("user", "moderator", "admin", "super_admin", "org_account", name="user_role")
-user_status_enum = sa.Enum("pending_verification", "active", "suspended", "banned", name="user_status")
-post_type_enum = sa.Enum("standard", "announcement", "event", "safety_alert", name="post_type")
-visibility_status_enum = sa.Enum(
+user_role_enum = postgresql.ENUM("user", "moderator", "admin", "super_admin", "org_account", name="user_role", create_type=False)
+user_status_enum = postgresql.ENUM("pending_verification", "active", "suspended", "banned", name="user_status", create_type=False)
+post_type_enum = postgresql.ENUM("standard", "announcement", "event", "safety_alert", name="post_type", create_type=False)
+visibility_status_enum = postgresql.ENUM(
     "pending_moderation",
     "visible",
     "hidden",
@@ -29,15 +30,16 @@ visibility_status_enum = sa.Enum(
     "removed",
     "expired",
     name="visibility_status",
+    create_type=False,
 )
-moderation_status_enum = sa.Enum("pending", "approved", "flagged", "auto_hidden", "rejected", name="moderation_status")
-reaction_type_enum = sa.Enum("like", "dislike", name="reaction_type")
-report_status_enum = sa.Enum("open", "reviewing", "resolved", "dismissed", name="report_status")
-location_source_enum = sa.Enum("gps", "manual", "admin", name="location_source")
-flag_source_enum = sa.Enum("ai", "user_report", "admin", name="flag_source")
-flag_type_enum = sa.Enum("harassment", "threat", "hate_speech", "spam", "self_harm", "other", name="flag_type")
-flag_decision_enum = sa.Enum("pending_review", "allowed", "hidden", "removed", name="flag_decision")
-report_target_type_enum = sa.Enum("post", "comment", "user", name="report_target_type")
+moderation_status_enum = postgresql.ENUM("pending", "approved", "flagged", "auto_hidden", "rejected", name="moderation_status", create_type=False)
+reaction_type_enum = postgresql.ENUM("like", "dislike", name="reaction_type", create_type=False)
+report_status_enum = postgresql.ENUM("open", "reviewing", "resolved", "dismissed", name="report_status", create_type=False)
+location_source_enum = postgresql.ENUM("gps", "manual", "admin", name="location_source", create_type=False)
+flag_source_enum = postgresql.ENUM("ai", "user_report", "admin", name="flag_source", create_type=False)
+flag_type_enum = postgresql.ENUM("harassment", "threat", "hate_speech", "spam", "self_harm", "other", name="flag_type", create_type=False)
+flag_decision_enum = postgresql.ENUM("pending_review", "allowed", "hidden", "removed", name="flag_decision", create_type=False)
+report_target_type_enum = postgresql.ENUM("post", "comment", "user", name="report_target_type", create_type=False)
 
 
 def upgrade() -> None:
