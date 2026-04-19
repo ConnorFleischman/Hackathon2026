@@ -1,0 +1,70 @@
+Merge branch 'main' of https://github.com/ConnorFleischman/Hackathon2026
+#
+# It looks like you may be committing a merge.
+# If this is not correct, please run
+#	git update-ref -d MERGE_HEAD
+# and try again.
+
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch main
+# Your branch and 'origin/main' have diverged,
+# and have 2 and 1 different commits each, respectively.
+#
+# All conflicts fixed but you are still merging.
+#
+# Changes to be committed:
+#	modified:   backend/.env.example
+#	new file:   backend/alembic/versions/20260419_0001_initial_schema.py
+#	deleted:    backend/app/api/routes/admin.py
+#	modified:   backend/app/api/routes/auth.py
+#	modified:   backend/app/api/routes/campuses.py
+#	deleted:    backend/app/api/routes/comments.py
+#	new file:   backend/app/api/routes/feed.py
+#	modified:   backend/app/api/routes/health.py
+#	deleted:    backend/app/api/routes/location.py
+#	modified:   backend/app/api/routes/posts.py
+#	deleted:    backend/app/api/routes/reactions.py
+#	deleted:    backend/app/api/routes/reports.py
+#	deleted:    backend/app/api/routes/users.py
+#	deleted:    backend/app/api/routes/websocket.py
+#	modified:   backend/app/api/v1/router.py
+#	modified:   backend/app/core/config.py
+#	modified:   backend/app/core/dependencies.py
+#	modified:   backend/app/core/logging.py
+#	deleted:    backend/app/core/permissions.py
+#	deleted:    backend/app/core/rate_limit.py
+#	modified:   backend/app/core/security.py
+#	modified:   backend/app/db/base.py
+#	modified:   backend/app/db/enums.py
+#	modified:   backend/app/db/models/__init__.py
+#	new file:   backend/app/db/models/admin_action.py
+#	new file:   backend/app/db/models/audit_log.py
+#	new file:   backend/app/db/models/ban.py
+#	new file:   backend/app/db/models/campus.py
+#	new file:   backend/app/db/models/category.py
+#	new file:   backend/app/db/models/comment.py
+#	new file:   backend/app/db/models/post.py
+#	new file:   backend/app/db/models/post_flag.py
+#	new file:   backend/app/db/models/reaction.py
+#	new file:   backend/app/db/models/report.py
+#	new file:   backend/app/db/models/session.py
+#	new file:   backend/app/db/models/user.py
+#	new file:   backend/app/db/models/user_location.py
+#	deleted:    backend/app/db/repositories/__init__.py
+#	modified:   backend/app/db/session.py
+#	modified:   backend/app/main.py
+#	modified:   backend/app/schemas/__init__.py
+#	new file:   backend/app/schemas/auth.py
+#	deleted:    backend/app/schemas/common.py
+#	new file:   backend/app/schemas/post.py
+#	deleted:    backend/app/services/__init__.py
+#	new file:   backend/app/utils/clocks.py
+#	new file:   backend/app/utils/ids.py
+#	deleted:    backend/app/workers/__init__.py
+#	modified:   backend/requirements.txt
+#	modified:   backend/tests/conftest.py
+#	new file:   backend/tests/test_mvp.py
+#
