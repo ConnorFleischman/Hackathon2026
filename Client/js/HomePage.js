@@ -1,4 +1,5 @@
 let feedContainer = document.getElementById('feed');
+let 
 
 document.addEventListener("DOMContentLoaded", function() {
     fetch('/api/getPosts')
