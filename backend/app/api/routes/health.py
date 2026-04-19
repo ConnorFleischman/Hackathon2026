@@ -1,17 +1,28 @@
-"""Liveness and readiness probes."""
+"""Health endpoints for service liveness and database reachability."""
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Response, status
 
-router = APIRouter()
+from app.core.config import settings
+from app.db.session import check_database_connection
+
+router = APIRouter(tags=["health"])
 
 
 @router.get("/health")
-def get_health() -> dict[str, str]:
-    """Process is up; does not verify dependencies."""
-    return {"status": "ok"}
+def get_health(response: Response) -> dict[str, str]:
+    """Report service liveness and whether the configured database is reachable."""
+    try:
+        check_database_connection()
+    except RuntimeError:
+        response.status_code = status.HTTP_503_SERVICE_UNAVAILABLE
+        return {
+            "status": "error",
+            "service": settings.APP_NAME,
+            "database": "unavailable",
+        }
 
-
-@router.get("/ready")
-def get_ready() -> dict[str, bool]:
-    """Readiness placeholder: full dependency checks are not wired in this scaffold."""
-    return {"ready": False}
+    return {
+        "status": "ok",
+        "service": settings.APP_NAME,
+        "database": "connected",
+    }

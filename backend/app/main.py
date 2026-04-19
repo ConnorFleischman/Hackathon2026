@@ -1,8 +1,4 @@
-"""
-FastAPI application entrypoint.
-
-Route handlers stay thin; business logic lives in services; persistence in repositories.
-"""
+"""FastAPI application entrypoint."""
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -15,19 +11,12 @@ from app.core.logging import configure_logging
 configure_logging()
 
 app = FastAPI(
-    title="Campus Social API",
-    description="Backend for the campus-based social application.",
+    title=settings.APP_NAME,
+    description="Backend foundation for the campus social application.",
     version="0.1.0",
     docs_url="/docs" if not settings.is_production else None,
     redoc_url="/redoc" if not settings.is_production else None,
 )
-
-
-@app.on_event("startup")
-async def on_startup() -> None:
-    """Reserved for connection pools, shared clients, and readiness integration."""
-    pass
-
 
 if settings.cors_origins:
     app.add_middleware(
@@ -38,5 +27,5 @@ if settings.cors_origins:
         allow_headers=["*"],
     )
 
-app.include_router(health.router, tags=["health"])
+app.include_router(health.router)
 app.include_router(v1_router, prefix="/api/v1")
