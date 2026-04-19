@@ -4,11 +4,11 @@ from datetime import datetime
 from typing import TYPE_CHECKING
 from uuid import UUID
 
-from sqlalchemy import CheckConstraint, DateTime, Enum, ForeignKey, String, Text, Uuid, text
+from sqlalchemy import CheckConstraint, DateTime, ForeignKey, String, Text, Uuid, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base, TimestampMixin
-from app.db.enums import ModerationStatus, PostType, VisibilityStatus
+from app.db.enums import ModerationStatus, PostType, VisibilityStatus, db_enum
 from app.utils.ids import new_uuid
 
 if TYPE_CHECKING:
@@ -46,19 +46,19 @@ class Post(TimestampMixin, Base):
         nullable=True,
     )
     type: Mapped[PostType] = mapped_column(
-        Enum(PostType, name="post_type"),
+        db_enum(PostType, name="post_type"),
         index=True,
         nullable=False,
         server_default=text("'standard'"),
     )
     visibility_status: Mapped[VisibilityStatus] = mapped_column(
-        Enum(VisibilityStatus, name="visibility_status"),
+        db_enum(VisibilityStatus, name="visibility_status"),
         index=True,
         nullable=False,
         server_default=text("'pending_moderation'"),
     )
     moderation_status: Mapped[ModerationStatus] = mapped_column(
-        Enum(ModerationStatus, name="moderation_status"),
+        db_enum(ModerationStatus, name="moderation_status"),
         index=True,
         nullable=False,
         server_default=text("'pending'"),

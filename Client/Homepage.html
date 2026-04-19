@@ -1,9 +1,40 @@
-{% extends "Index.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatMuch Feed</title>
+</head>
+<body>
+    <header>
+        <h1>ChatMuch</h1>
+        <nav>
+            <a href="/Homepage.html">Home</a>
+            <a href="/Messages.html">Messages</a>
+            <button id="logoutButton" type="button">Log Out</button>
+        </nav>
+        <p id="userSummary"></p>
+    </header>
 
-{% block content %}
-    <h2><b>Welcome to ChatMuch</b></h2>
-    <!-- This is where we will load the feed content-->
-    <div id="feed">
+    <main>
+        <section>
+            <h2>Campus Feed</h2>
+            <form id="postForm">
+                <label for="postBody">Share an update</label><br>
+                <textarea id="postBody" rows="4" maxlength="500" required></textarea><br><br>
+                <button type="submit">Post</button>
+            </form>
+            <p id="composerStatus"></p>
+        </section>
 
-    </div>
-{% endblock %}
+        <section>
+            <h2>Recent Posts</h2>
+            <p id="feedStatus"></p>
+            <div id="feed"></div>
+        </section>
+    </main>
+
+    <script src="/js/global.js"></script>
+    <script src="/js/HomePage.js"></script>
+</body>
+</html>

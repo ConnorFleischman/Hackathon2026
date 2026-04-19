@@ -3,11 +3,11 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 from uuid import UUID
 
-from sqlalchemy import Enum, ForeignKey, Text, Uuid, text
+from sqlalchemy import ForeignKey, Text, Uuid, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base, TimestampMixin
-from app.db.enums import VisibilityStatus
+from app.db.enums import VisibilityStatus, db_enum
 from app.utils.ids import new_uuid
 
 if TYPE_CHECKING:
@@ -40,7 +40,7 @@ class Comment(TimestampMixin, Base):
         nullable=True,
     )
     visibility_status: Mapped[VisibilityStatus] = mapped_column(
-        Enum(VisibilityStatus, name="visibility_status"),
+        db_enum(VisibilityStatus, name="visibility_status"),
         nullable=False,
         server_default=text("'visible'"),
     )

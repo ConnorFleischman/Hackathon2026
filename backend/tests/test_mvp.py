@@ -11,6 +11,7 @@ from sqlalchemy.orm import Session
 
 from app.db.enums import ModerationStatus, PostType, VisibilityStatus
 from app.db.models.post import Post
+from app.db.models.user import User
 from app.utils.clocks import utc_now
 from tests.conftest import register_user
 
@@ -31,6 +32,43 @@ def test_app_startup_and_health(client: TestClient) -> None:
         "service": "Campus Social API",
         "database": "connected",
     }
+
+
+def test_client_pages_are_served(client: TestClient) -> None:
+    root = client.get("/", follow_redirects=False)
+    login_page = client.get("/login.html")
+    homepage = client.get("/Homepage.html")
+    global_js = client.get("/js/global.js")
+
+    assert root.status_code == 307
+    assert root.headers["location"] == "/login.html"
+    assert login_page.status_code == 200
+    assert "ChatMuch" in login_page.text
+    assert homepage.status_code == 200
+    assert "Campus Feed" in homepage.text
+    assert global_js.status_code == 200
+    assert "window.ChatMuch" in global_js.text
+
+
+def test_database_enums_store_lowercase_values() -> None:
+    assert User.__table__.c.role.type.enums == ["user", "moderator", "admin", "super_admin", "org_account"]
+    assert User.__table__.c.status.type.enums == ["pending_verification", "active", "suspended", "banned"]
+    assert Post.__table__.c.type.type.enums == ["standard", "announcement", "event", "safety_alert"]
+    assert Post.__table__.c.visibility_status.type.enums == [
+        "pending_moderation",
+        "visible",
+        "hidden",
+        "archived",
+        "removed",
+        "expired",
+    ]
+    assert Post.__table__.c.moderation_status.type.enums == [
+        "pending",
+        "approved",
+        "flagged",
+        "auto_hidden",
+        "rejected",
+    ]
 
 
 def test_register_success(client: TestClient, campuses) -> None:

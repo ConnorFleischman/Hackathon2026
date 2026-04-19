@@ -3,11 +3,11 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 from uuid import UUID
 
-from sqlalchemy import Enum, ForeignKey, UniqueConstraint, Uuid, text
+from sqlalchemy import ForeignKey, UniqueConstraint, Uuid, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base, TimestampMixin
-from app.db.enums import ReactionType
+from app.db.enums import ReactionType, db_enum
 from app.utils.ids import new_uuid
 
 if TYPE_CHECKING:
@@ -33,7 +33,7 @@ class Reaction(TimestampMixin, Base):
         nullable=False,
     )
     reaction_type: Mapped[ReactionType] = mapped_column(
-        Enum(ReactionType, name="reaction_type"),
+        db_enum(ReactionType, name="reaction_type"),
         nullable=False,
         server_default=text("'like'"),
     )

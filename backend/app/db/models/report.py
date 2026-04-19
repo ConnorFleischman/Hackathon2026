@@ -3,11 +3,11 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 from uuid import UUID
 
-from sqlalchemy import CheckConstraint, Enum, ForeignKey, Text, Uuid, text
+from sqlalchemy import CheckConstraint, ForeignKey, Text, Uuid, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base, TimestampMixin
-from app.db.enums import ReportStatus, ReportTargetType
+from app.db.enums import ReportStatus, ReportTargetType, db_enum
 from app.utils.ids import new_uuid
 
 if TYPE_CHECKING:
@@ -33,7 +33,7 @@ class Report(TimestampMixin, Base):
         nullable=False,
     )
     target_type: Mapped[ReportTargetType] = mapped_column(
-        Enum(ReportTargetType, name="report_target_type"),
+        db_enum(ReportTargetType, name="report_target_type"),
         index=True,
         nullable=False,
     )
@@ -57,7 +57,7 @@ class Report(TimestampMixin, Base):
     )
     reason: Mapped[str] = mapped_column(Text, nullable=False)
     status: Mapped[ReportStatus] = mapped_column(
-        Enum(ReportStatus, name="report_status"),
+        db_enum(ReportStatus, name="report_status"),
         index=True,
         nullable=False,
         server_default=text("'open'"),

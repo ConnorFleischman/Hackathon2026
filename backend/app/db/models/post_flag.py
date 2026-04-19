@@ -4,11 +4,11 @@ from datetime import datetime
 from typing import TYPE_CHECKING
 from uuid import UUID
 
-from sqlalchemy import CheckConstraint, DateTime, Enum, ForeignKey, Text, Uuid, text
+from sqlalchemy import CheckConstraint, DateTime, ForeignKey, Text, Uuid, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base, TimestampMixin
-from app.db.enums import FlagDecision, FlagSource, FlagType
+from app.db.enums import FlagDecision, FlagSource, FlagType, db_enum
 from app.utils.ids import new_uuid
 
 if TYPE_CHECKING:
@@ -40,15 +40,15 @@ class PostFlag(TimestampMixin, Base):
         nullable=True,
     )
     source: Mapped[FlagSource] = mapped_column(
-        Enum(FlagSource, name="flag_source"),
+        db_enum(FlagSource, name="flag_source"),
         nullable=False,
     )
     flag_type: Mapped[FlagType] = mapped_column(
-        Enum(FlagType, name="flag_type"),
+        db_enum(FlagType, name="flag_type"),
         nullable=False,
     )
     decision: Mapped[FlagDecision] = mapped_column(
-        Enum(FlagDecision, name="flag_decision"),
+        db_enum(FlagDecision, name="flag_decision"),
         index=True,
         nullable=False,
         server_default=text("'pending_review'"),
