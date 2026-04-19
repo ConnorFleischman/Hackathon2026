@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Title veries from page to page-->
+    <title>{% block title %}ChatMuch{% endblock %}</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+</head>
+<!--This essentially will be the skeletal layout that all pages will have in common-->
+<body>
+    <h2 width="100%" style="border: 2px solid black; border-radius: 2px;"><b>ChatMuch</b></h2>
+    <div>
+    <!-- The content of each page will be inserted here-->
+        {% block content %}
+        {% endblock %}
+    <!-- This will be our navigation bar, allowing users to move from page to page respectively-->
+    <nav flex-container style="flex-direction: row;">
+        <img source="static/homeLogo-removebg-preview.png" alt="Home" style="margin-left: 50px;"><a href="Homepage.html">Home</a></img>
+        <img source="static/profile-removebg-preview.png" alt="Profile" style="margin-left: 150px;"><a href="Profile.html">Profile</a></img>
+        <img source="static/message-removebg-preview.png" alt="Message" style="margin-left: 150px;"><a href="Messages.html">Messages</a></img>
+    </nav>    
+    </div>
+</body>
