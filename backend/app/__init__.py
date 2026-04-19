@@ -1,0 +1,1 @@
+"""Campus social application package."""
