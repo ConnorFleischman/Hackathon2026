@@ -10,9 +10,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const campusSelect = document.getElementById("registerCampus");
     const loginStatus = document.getElementById("loginStatus");
     const registerStatus = document.getElementById("registerStatus");
+    const { setStatus } = window.ChatMuch;
 
     async function loadCampuses() {
         campusSelect.innerHTML = '<option value="">Loading campuses...</option>';
+        setStatus(registerStatus, "Loading campus list...", "info");
 
         try {
             const campuses = await window.ChatMuch.apiRequest("/campuses");
@@ -24,15 +26,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 option.textContent = campus.name;
                 campusSelect.appendChild(option);
             });
+            setStatus(registerStatus, "", "info");
         } catch (error) {
             campusSelect.innerHTML = '<option value="">Unable to load campuses</option>';
-            registerStatus.textContent = error.message;
+            setStatus(registerStatus, error.message, "error");
         }
     }
 
     loginForm.addEventListener("submit", async (event) => {
         event.preventDefault();
-        loginStatus.textContent = "Signing in...";
+        setStatus(loginStatus, "Signing in...", "info");
 
         const payload = {
             email: document.getElementById("loginEmail").value,
@@ -45,15 +48,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 body: JSON.stringify(payload),
             });
             window.ChatMuch.saveAuthSession(sessionData);
+            setStatus(loginStatus, "Signed in. Opening your feed...", "success");
             window.location.href = "/Homepage.html";
         } catch (error) {
-            loginStatus.textContent = error.message;
+            setStatus(loginStatus, error.message, "error");
         }
     });
 
     registerForm.addEventListener("submit", async (event) => {
         event.preventDefault();
-        registerStatus.textContent = "Creating account...";
+        setStatus(registerStatus, "Creating account...", "info");
 
         const payload = {
             email: document.getElementById("registerEmail").value,
@@ -69,9 +73,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 body: JSON.stringify(payload),
             });
             window.ChatMuch.saveAuthSession(sessionData);
+            setStatus(registerStatus, "Account created. Opening your feed...", "success");
             window.location.href = "/Homepage.html";
         } catch (error) {
-            registerStatus.textContent = error.message;
+            setStatus(registerStatus, error.message, "error");
         }
     });
 

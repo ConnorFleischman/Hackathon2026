@@ -1,13 +1,94 @@
-{% extends "Index.html" %}
-{% block title %}Profile Page{% endblock %}
-{% block content %}
-    <h2><b>Welcome to your profile page!</b></h2>
-    <p>Here you can view and edit your profile information, as well as see your recent activity.</p>
-    <div id="profile-info">
-        <!-- This is where we will load the user's profile information -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatMuch Profile</title>
+    <link rel="stylesheet" href="/css/Homepage.css">
+</head>
+<body>
+    <div class="page-shell">
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">Your campus identity</p>
+                <h1 class="app-brand">Profile</h1>
+                <p id="profileSummary" class="topbar-meta"></p>
+            </div>
+
+            <nav class="topbar-actions" aria-label="Primary">
+                <a class="button-ghost" href="/Homepage.html">Feed</a>
+                <a class="button-secondary" href="/Profile.html">Profile</a>
+                <a class="button-ghost" href="/Messages.html">Messages</a>
+                <button id="logoutButton" class="button-ghost" type="button">Log Out</button>
+            </nav>
+        </header>
+
+        <main class="main-grid">
+            <aside class="sidebar-stack">
+                <section class="content-card">
+                    <div class="card-header">
+                        <div>
+                            <h2>Account</h2>
+                            <p>Information currently available from the authenticated session.</p>
+                        </div>
+                    </div>
+                    <div id="profileCard" class="profile-card">
+                        <div class="user-chip">
+                            <div class="avatar">CM</div>
+                            <div>
+                                <strong>Loading profile...</strong>
+                                <span class="muted-text">Fetching account details</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-card">
+                    <div class="card-header">
+                        <div>
+                            <h2>Activity</h2>
+                            <p>A quick snapshot of your current campus presence.</p>
+                        </div>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-label">Posts in feed</div>
+                            <div id="profilePostCount" class="stat-value">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Account status</div>
+                            <div id="profileStatusValue" class="stat-value profile-stat-text">-</div>
+                        </div>
+                    </div>
+                </section>
+            </aside>
+
+            <section class="feed-stack">
+                <section class="content-card">
+                    <div class="card-header">
+                        <div>
+                            <h2>About you</h2>
+                            <p>Profile details mapped to the current backend schema.</p>
+                        </div>
+                    </div>
+                    <div id="profileDetails" class="detail-list"></div>
+                </section>
+
+                <section class="content-card">
+                    <div class="card-header">
+                        <div>
+                            <h2>My recent posts</h2>
+                            <p>Your currently visible posts from the campus feed.</p>
+                        </div>
+                        <p id="profilePostsStatus" class="muted-text"></p>
+                    </div>
+                    <div id="myPosts" class="feed-list"></div>
+                </section>
+            </section>
+        </main>
     </div>
-    <!-- This loads the user's posts -->
-    <div id="my-posts">
-        
-    </div>
-{% endblock %}
+
+    <script src="/js/global.js"></script>
+    <script src="/js/profile.js"></script>
+</body>
+</html>

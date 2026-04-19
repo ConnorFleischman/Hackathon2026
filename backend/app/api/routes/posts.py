@@ -45,9 +45,9 @@ def create_post(payload: PostCreateRequest, db: DbSession, user: CurrentUser) ->
     post = Post(
         user_id=user.id,
         campus_id=campus.id,
-        type=PostType.STANDARD,
-        visibility_status=VisibilityStatus.VISIBLE,
-        moderation_status=ModerationStatus.APPROVED,
+        type=PostType.STANDARD.value,
+        visibility_status=VisibilityStatus.VISIBLE.value,
+        moderation_status=ModerationStatus.APPROVED.value,
         title=None,
         body=payload.body,
         expires_at=expires_at,
@@ -69,8 +69,8 @@ def get_post(post_id: UUID, db: DbSession) -> Post:
     post = db.scalar(
         select(Post).where(
             Post.id == post_id,
-            Post.visibility_status == VisibilityStatus.VISIBLE,
-            Post.moderation_status == ModerationStatus.APPROVED,
+            Post.visibility_status == VisibilityStatus.VISIBLE.value,
+            Post.moderation_status == ModerationStatus.APPROVED.value,
             Post.expires_at > utc_now(),
         ),
     )

@@ -4,47 +4,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChatMuch Login</title>
+    <link rel="stylesheet" href="/css/Homepage.css">
 </head>
-<body>
-    <main>
-        <h1>ChatMuch</h1>
-        <p>Sign in or create an account to load the campus feed from the FastAPI backend.</p>
+<body class="auth-page">
+    <main class="auth-layout">
+        <section class="glass-panel hero-panel">
+            <span class="eyebrow">Campus social, without the chaos</span>
+            <h1>ChatMuch</h1>
+            <p class="hero-copy">
+                Join your campus feed to see real-time updates, share what is happening, and stay in the loop with the people around you.
+            </p>
 
-        <section>
-            <h2>Login</h2>
-            <form id="loginForm">
-                <label for="loginEmail">Email</label><br>
-                <input id="loginEmail" type="email" required><br><br>
-
-                <label for="loginPassword">Password</label><br>
-                <input id="loginPassword" type="password" required><br><br>
-
-                <button type="submit">Sign In</button>
-            </form>
-            <p id="loginStatus"></p>
+            <ul class="hero-points">
+                <li>
+                    <div class="avatar">F</div>
+                    <div>
+                        <strong>Actual feed experience</strong>
+                        Clean cards, quick posting, and a layout that feels like a real product.
+                    </div>
+                </li>
+                <li>
+                    <div class="avatar">C</div>
+                    <div>
+                        <strong>Campus-first community</strong>
+                        Sign in with your school profile and browse posts that matter to your campus.
+                    </div>
+                </li>
+                <li>
+                    <div class="avatar">L</div>
+                    <div>
+                        <strong>Low-friction onboarding</strong>
+                        Login if you already have an account or create one in seconds.
+                    </div>
+                </li>
+            </ul>
         </section>
 
-        <section>
-            <h2>Register</h2>
-            <form id="registerForm">
-                <label for="registerEmail">Email</label><br>
-                <input id="registerEmail" type="email" required><br><br>
+        <section class="glass-panel auth-card">
+            <div class="auth-card-header">
+                <h2>Welcome back</h2>
+                <p>Use your existing account or create a new one to open the feed.</p>
+            </div>
 
-                <label for="registerUsername">Username</label><br>
-                <input id="registerUsername" type="text" minlength="3" required><br><br>
+            <div class="auth-grid">
+                <section class="form-card">
+                    <h3>Sign in</h3>
+                    <p class="section-subtitle">Pick up right where you left off.</p>
+                    <form id="loginForm" class="field-grid">
+                        <div class="field-row">
+                            <label for="loginEmail">Email</label>
+                            <input id="loginEmail" type="email" placeholder="you@school.edu" required>
+                        </div>
 
-                <label for="registerDisplayName">Display Name</label><br>
-                <input id="registerDisplayName" type="text"><br><br>
+                        <div class="field-row">
+                            <label for="loginPassword">Password</label>
+                            <input id="loginPassword" type="password" placeholder="Enter your password" required>
+                        </div>
 
-                <label for="registerCampus">Campus</label><br>
-                <select id="registerCampus" required></select><br><br>
+                        <div class="button-row">
+                            <button class="button-primary" type="submit">Sign In</button>
+                        </div>
+                    </form>
+                    <p id="loginStatus" class="status-pill" aria-live="polite"></p>
+                </section>
 
-                <label for="registerPassword">Password</label><br>
-                <input id="registerPassword" type="password" minlength="8" required><br><br>
+                <section class="form-card">
+                    <h3>Create account</h3>
+                    <p class="section-subtitle">Get set up for your campus in one step.</p>
+                    <form id="registerForm" class="field-grid">
+                        <div class="field-row">
+                            <label for="registerEmail">Email</label>
+                            <input id="registerEmail" type="email" placeholder="you@school.edu" required>
+                        </div>
 
-                <button type="submit">Create Account</button>
-            </form>
-            <p id="registerStatus"></p>
+                        <div class="field-row">
+                            <label for="registerUsername">Username</label>
+                            <input id="registerUsername" type="text" minlength="3" placeholder="Pick a username" required>
+                        </div>
+
+                        <div class="field-row">
+                            <label for="registerDisplayName">Display Name</label>
+                            <input id="registerDisplayName" type="text" placeholder="How your name should appear">
+                        </div>
+
+                        <div class="field-row">
+                            <label for="registerCampus">Campus</label>
+                            <select id="registerCampus" required></select>
+                            <span class="field-hint">Choose the campus feed you want to join.</span>
+                        </div>
+
+                        <div class="field-row">
+                            <label for="registerPassword">Password</label>
+                            <input id="registerPassword" type="password" minlength="8" placeholder="At least 8 characters" required>
+                        </div>
+
+                        <div class="button-row">
+                            <button class="button-primary" type="submit">Create Account</button>
+                        </div>
+                    </form>
+                    <p id="registerStatus" class="status-pill" aria-live="polite"></p>
+                </section>
+            </div>
         </section>
     </main>
 

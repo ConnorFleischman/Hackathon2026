@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const logoutButton = document.getElementById("logoutButton");
     const profileSummary = document.getElementById("profileSummary");
     const messagesStatus = document.getElementById("messagesStatus");
+    const { setStatus } = window.ChatMuch;
 
     logoutButton.addEventListener("click", () => {
         window.ChatMuch.clearAuthSession();
@@ -15,9 +16,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
         const user = await window.ChatMuch.apiRequest("/auth/me");
-        profileSummary.textContent = `${user.display_name || user.username} is connected to the backend.`;
-        messagesStatus.textContent =
-            "Direct messaging is not implemented in the current backend yet, so this page is a safe placeholder instead of a broken API call.";
+        profileSummary.textContent = `${user.display_name || user.username} is connected and ready for future inbox features.`;
+        setStatus(
+            messagesStatus,
+            "Direct messaging is not implemented in the backend yet, so this page stays polished without making a broken API request.",
+            "info",
+        );
     } catch (error) {
         window.ChatMuch.clearAuthSession();
         window.location.href = "/login.html";

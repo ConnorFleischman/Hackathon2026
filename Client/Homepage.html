@@ -4,35 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChatMuch Feed</title>
+    <link rel="stylesheet" href="/css/Homepage.css">
 </head>
 <body>
-    <header>
-        <h1>ChatMuch</h1>
-        <nav>
-            <a href="/Homepage.html">Home</a>
-            <a href="/Messages.html">Messages</a>
-            <button id="logoutButton" type="button">Log Out</button>
-        </nav>
-        <p id="userSummary"></p>
-    </header>
+    <div class="page-shell">
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">Live campus conversations</p>
+                <h1 class="app-brand">Campus Feed</h1>
+                <p id="userSummary" class="topbar-meta"></p>
+            </div>
 
-    <main>
-        <section>
-            <h2>Campus Feed</h2>
-            <form id="postForm">
-                <label for="postBody">Share an update</label><br>
-                <textarea id="postBody" rows="4" maxlength="500" required></textarea><br><br>
-                <button type="submit">Post</button>
-            </form>
-            <p id="composerStatus"></p>
-        </section>
+            <nav class="topbar-actions" aria-label="Primary">
+                <a class="button-secondary" href="/Homepage.html">Feed</a>
+                <a class="button-ghost" href="/Profile.html">Profile</a>
+                <a class="button-ghost" href="/Messages.html">Messages</a>
+                <button id="logoutButton" class="button-ghost" type="button">Log Out</button>
+            </nav>
+        </header>
 
-        <section>
-            <h2>Recent Posts</h2>
-            <p id="feedStatus"></p>
-            <div id="feed"></div>
-        </section>
-    </main>
+        <main class="main-grid">
+            <aside class="sidebar-stack">
+                <section class="content-card">
+                    <div class="card-header">
+                        <div>
+                            <h2>Profile</h2>
+                            <p>Your account snapshot for this session.</p>
+                        </div>
+                    </div>
+                    <div id="profileChip" class="user-chip">
+                        <div class="avatar">C</div>
+                        <div>
+                            <strong>Loading account...</strong>
+                            <span class="muted-text">Pulling your campus profile</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-card">
+                    <div class="card-header">
+                        <div>
+                            <h2>Feed stats</h2>
+                            <p>Quick look at what is active right now.</p>
+                        </div>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-label">Visible posts</div>
+                            <div id="feedCount" class="stat-value">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Composer limit</div>
+                            <div class="stat-value">500</div>
+                        </div>
+                    </div>
+                </section>
+            </aside>
+
+            <section class="feed-stack">
+                <section class="content-card composer-shell">
+                    <div class="card-header">
+                        <div>
+                            <h2>Share with campus</h2>
+                            <p>Post a quick update, announcement, or something worth knowing.</p>
+                        </div>
+                    </div>
+
+                    <form id="postForm">
+                        <div class="field-row">
+                            <label for="postBody">What is happening?</label>
+                            <textarea id="postBody" rows="4" maxlength="500" placeholder="Share something useful, funny, or important..." required></textarea>
+                        </div>
+                        <div class="composer-footer">
+                            <span>Posts expire automatically after 24 hours.</span>
+                            <div class="button-row">
+                                <button class="button-primary" type="submit">Publish Post</button>
+                            </div>
+                        </div>
+                    </form>
+                    <p id="composerStatus" class="status-pill" aria-live="polite"></p>
+                </section>
+
+                <section class="content-card">
+                    <div class="card-header">
+                        <div>
+                            <h2>Recent posts</h2>
+                            <p>Fresh posts from people on your campus.</p>
+                        </div>
+                        <p id="feedStatus" class="muted-text"></p>
+                    </div>
+                    <div id="feed" class="feed-list"></div>
+                </section>
+            </section>
+        </main>
+    </div>
 
     <script src="/js/global.js"></script>
     <script src="/js/HomePage.js"></script>

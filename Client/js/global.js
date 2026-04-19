@@ -27,6 +27,27 @@
         window.localStorage.removeItem(STORAGE_KEY);
     }
 
+    function escapeHtml(value) {
+        return String(value).replace(/[&<>"']/g, (character) => (
+            {
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;",
+            }[character]
+        ));
+    }
+
+    function getInitials(value) {
+        return (value || "CM")
+            .split(/\s+/)
+            .filter(Boolean)
+            .slice(0, 2)
+            .map((part) => part[0].toUpperCase())
+            .join("") || "CM";
+    }
+
     function requireAuthSession() {
         const session = loadAuthSession();
         if (!session || !session.access_token) {
@@ -79,12 +100,59 @@
         return new Date(value).toLocaleString();
     }
 
+    function formatRelativeTime(value) {
+        const targetDate = new Date(value);
+        const diffMs = targetDate.getTime() - Date.now();
+        const absoluteMinutes = Math.round(Math.abs(diffMs) / 60000);
+
+        if (absoluteMinutes < 1) {
+            return diffMs >= 0 ? "in a moment" : "just now";
+        }
+
+        const units = [
+            { limit: 60, divisor: 1, label: "minute" },
+            { limit: 1440, divisor: 60, label: "hour" },
+            { limit: 10080, divisor: 1440, label: "day" },
+        ];
+
+        for (const unit of units) {
+            if (absoluteMinutes < unit.limit) {
+                const amount = Math.round(absoluteMinutes / unit.divisor);
+                return diffMs >= 0
+                    ? `in ${amount} ${unit.label}${amount === 1 ? "" : "s"}`
+                    : `${amount} ${unit.label}${amount === 1 ? "" : "s"} ago`;
+            }
+        }
+
+        const amount = Math.round(absoluteMinutes / 10080);
+        return diffMs >= 0
+            ? `in ${amount} week${amount === 1 ? "" : "s"}`
+            : `${amount} week${amount === 1 ? "" : "s"} ago`;
+    }
+
+    function setStatus(element, message, tone = "info") {
+        if (!element) {
+            return;
+        }
+
+        element.textContent = message || "";
+        element.className = "status-pill";
+
+        if (message) {
+            element.classList.add("has-status", `is-${tone}`);
+        }
+    }
+
     window.ChatMuch = {
         apiRequest,
         clearAuthSession,
+        escapeHtml,
         formatDateTime,
+        formatRelativeTime,
+        getInitials,
         loadAuthSession,
         requireAuthSession,
+        setStatus,
         saveAuthSession,
     };
 })();

@@ -38,7 +38,9 @@ def test_client_pages_are_served(client: TestClient) -> None:
     root = client.get("/", follow_redirects=False)
     login_page = client.get("/login.html")
     homepage = client.get("/Homepage.html")
+    profile_page = client.get("/Profile.html")
     global_js = client.get("/js/global.js")
+    profile_js = client.get("/js/profile.js")
 
     assert root.status_code == 307
     assert root.headers["location"] == "/login.html"
@@ -46,8 +48,11 @@ def test_client_pages_are_served(client: TestClient) -> None:
     assert "ChatMuch" in login_page.text
     assert homepage.status_code == 200
     assert "Campus Feed" in homepage.text
+    assert profile_page.status_code == 200
+    assert "Profile" in profile_page.text
     assert global_js.status_code == 200
     assert "window.ChatMuch" in global_js.text
+    assert profile_js.status_code == 200
 
 
 def test_database_enums_store_lowercase_values() -> None:
